@@ -1,0 +1,7 @@
+# see: https://github.com/JohnnyMorganz/StyLua#options
+
+quote_style = "AutoPreferDouble"
+
+# see https://github.com/JohnnyMorganz/StyLua?tab=readme-ov-file#requires-sorting
+[sort_requires]
+enabled = true
