@@ -1,0 +1,48 @@
+# https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - "*"
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Environment information
+        run: |
+          uname
+          uname -a
+
+      - uses: actions/checkout@v4
+
+      # https://github.com/folke/github/blob/main/neovim/action.yml
+      - uses: folke/github/neovim@main
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y libreadline-dev
+
+      - name: Test Cache
+        uses: actions/cache@v4
+        with:
+          path: .tests
+          key: ${{ runner.os }}-tests-${{ hashFiles('tests/minit.lua', 'scripts/test') }}
+      - name: Run Tests
+        run: ./scripts/test
+
+      - name: Setup upterm session
+        env:
+          DEBUG_SSH: ${{ secrets.DebugSSH }}
+        if: ${{ env.DEBUG_SSH == 'true' }}
+        uses: lhotari/action-upterm@v1
+        with:
+          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+          # limit-access-to-actor: true
+          ## limits ssh access and adds the ssh public keys of the listed GitHub users
+          limit-access-to-users: hjdivad,rwjblue

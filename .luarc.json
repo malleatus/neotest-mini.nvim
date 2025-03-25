@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "workspace.library": [
+    "lua",
+    "/opt/homebrew/Cellar/neovim/0.10.4_1/share/nvim/runtime/lua",
+    "~/.local/share/nvim/lazy/nvim-nio/lua/",
+    "~/.local/share/nvim/lazy/neotest/lua/",
+    "~/.local/share/nvim/lazy/mini.test/lua/",
+    "~/.local/share/nvim/lazy/lazy.nvim/lua/"
+  ]
+}
